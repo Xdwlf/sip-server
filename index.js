@@ -3,6 +3,9 @@ const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const errorHandler = require('./handlers/error')
+const authRoutes = require('./routes/auth')
+const userRoutes = require('./routes/user')
+const commentRoutes = require('./routes/comment')
 const PORT = process.env.PORT || 8081
 
 app.use(cors())
