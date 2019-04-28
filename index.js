@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const {loginRequired, authorizeCurrentUser} = require('./middleware/auth')
 const errorHandler = require('./handlers/errors')
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
@@ -14,8 +15,9 @@ app.use(bodyParser.json())
 
 //Routes
 app.use("/api/auth", authRoutes)
-app.use("/api/user/:id", userRoutes)
 app.use("/api/drinks/:drink_id/comments", commentRoutes)
+app.use("/api/user/:user_id", /*loginRequired, authorizeCurrentUser, */userRoutes)
+
 
 //If no routes are reached
 app.use(function(req,res, next){
