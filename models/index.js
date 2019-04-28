@@ -7,4 +7,3 @@ mongoose.connect( process.env.MONGODB_URI || 'mongodb://localhost/sip', {
 
 module.exports.User = require('./user')
 module.exports.Comment = require('./comment')
-// module.exports.Drink = require('./drink')
