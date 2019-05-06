@@ -2,7 +2,10 @@ const db = require('../models')
 
 const getAllComments = async function(req, res, next){
     try{
-        const comments = await db.Comment.find({drinkId: req.params.drink_id});
+        const comments = await db.Comment.find({drinkId: req.params.drink_id}).populate("user", {
+            username: true,
+            profileImgUrl: true
+        });
         return res.status(200).json(comments)
     } catch(err){
         return next(err)
@@ -13,7 +16,8 @@ const createComment = async function(req, res, next){
     try{    
         const comment = await db.Comment.create({text: req.body.text,
             user: req.body.user,
-            drinkId: req.params.drink_id
+            drinkId: req.params.drink_id,
+            rating: req.body.rating
         })
         const foundUser = await db.User.findById(req.body.user)
         foundUser.comments.push(comment.id)
@@ -43,7 +47,8 @@ const getComment = async function(req, res, next){
 const editComment = async function(req, res, next){
     try{
         const updatedComment = await db.Comment.findOneAndUpdate({_id: req.params.comment_id},
-            {text: req.body.text},
+            {text: req.body.text,
+            rating: req.body.rating},
             {new: true})
         return res.status(200).json(updatedComment)
     } catch(err){

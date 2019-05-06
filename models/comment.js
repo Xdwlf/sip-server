@@ -14,6 +14,10 @@ const commentSchema = new mongoose.Schema({
     drinkId : {
         type: String,
         required: true
+    },
+    rating: {
+        type: Number,
+        required: true
     }
 }, {timestamps: true})
 

@@ -45,7 +45,8 @@ const tokenizeUser = function(user){
     let token = jwt.sign({
         id,
         username,
-        email
+        email,
+        profileImgUrl
     }, process.env.SECRET_KEY);
     return {
         id,
