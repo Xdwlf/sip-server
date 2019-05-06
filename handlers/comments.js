@@ -49,7 +49,10 @@ const editComment = async function(req, res, next){
         const updatedComment = await db.Comment.findOneAndUpdate({_id: req.params.comment_id},
             {text: req.body.text,
             rating: req.body.rating},
-            {new: true})
+            {new: true}).populate("user", {
+                username: true,
+                profileImgUrl: true
+            })
         return res.status(200).json(updatedComment)
     } catch(err){
         next(err)
